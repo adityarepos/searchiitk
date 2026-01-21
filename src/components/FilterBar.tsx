@@ -319,9 +319,8 @@ const FilterBar = ({
         </Button>
       </div>
 
-      {/* Filter dropdowns */}
-      {showFilters && (
-        <Card className="p-4 animate-fade-in">
+      {/* Filter dropdowns - always visible */}
+      <Card className="p-4">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-foreground">Filter by</h3>
             {hasActiveFilters && (
@@ -490,7 +489,7 @@ const FilterBar = ({
             </div>
           )}
         </Card>
-      )}
+
     </div>
   );
 };

@@ -7,7 +7,7 @@ interface StudentImageProps {
   rollNo: string;
   username?: string;
   name: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
   showIdCardButton?: boolean;
 }
 
@@ -83,12 +83,18 @@ export function StudentImage({
     sm: "w-10 h-10",
     md: "w-28 h-28",
     lg: "w-36 h-36",
+    xl: "w-44 h-44",
+    "2xl": "w-56 h-56",
+    "3xl": "w-72 h-72",
   };
 
   const iconSizes = {
     sm: "w-5 h-5",
     md: "w-12 h-12",
     lg: "w-16 h-16",
+    xl: "w-20 h-20",
+    "2xl": "w-24 h-24",
+    "3xl": "w-28 h-28",
   };
 
   const showIdButton =

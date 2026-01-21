@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import type { Student, StudentModalProps } from "@/types/student";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getBatchLabel } from "@/lib/constants";
 import { fetchHometown, getFamilyMembers } from "@/lib/studentUtils";
 import { StudentImage, StudentThumbnail } from "@/components/StudentImage";
 import { ChevronLeft, ChevronRight, X, Users } from "lucide-react";
@@ -155,32 +154,27 @@ const StudentModal = ({
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {/* Profile section */}
-          <div className="flex gap-4">
+          {/* Profile section - centered photo */}
+          <div className="flex flex-col items-center gap-2">
             {/* Photo with smart fallback and ID card toggle */}
             <StudentImage
               rollNo={currentStudent.rollNo}
               username={currentStudent.username}
               name={currentStudent.name || "Unknown"}
-              size="md"
+              size="3xl"
               showIdCardButton={true}
             />
 
-            {/* Basic info */}
-            <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold text-card-foreground truncate">
+            {/* Name and roll number on one line */}
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-card-foreground">
                 {currentStudent.name || "Unknown"}
-              </h3>
-              <p className="text-sm font-mono text-muted-foreground">
-                {currentStudent.rollNo}
-              </p>
-              {currentStudent.batchYear && (
-                <span className="inline-block mt-2 px-2 py-0.5 bg-primary/10 text-primary text-xs font-semibold rounded-md">
-                  {getBatchLabel(currentStudent.batchYear)}
+                <span className="text-sm font-mono text-muted-foreground font-normal ml-2">
+                  ({currentStudent.rollNo})
                 </span>
-              )}
+              </h3>
               {!currentStudent.hasFullData && (
-                <p className="mt-2 text-xs text-muted-foreground italic">
+                <p className="mt-1 text-xs text-muted-foreground italic">
                   Limited data available
                 </p>
               )}
@@ -189,23 +183,20 @@ const StudentModal = ({
 
           {/* Details */}
           <div className="bg-muted/30 rounded-md p-3 border border-border">
-            <InfoRow label="Roll Number" value={currentStudent.rollNo} mono />
-            <InfoRow label="Department" value={currentStudent.department} />
-            <InfoRow label="Program" value={currentStudent.program} />
+            <InfoRow 
+              label="Program" 
+              value={[currentStudent.program, currentStudent.department].filter(Boolean).join(", ") || undefined} 
+            />
             <InfoRow label="Email" value={currentStudent.email} mono />
-            <InfoRow label="Username" value={currentStudent.username} mono />
             <InfoRow
               label="Hometown"
-              value={hometownLoading ? "Loading..." : hometown}
+              value={hometownLoading ? "Loading..." : (hometown && currentStudent.state ? `${hometown}, ${currentStudent.state}` : hometown)}
             />
             {currentStudent.hall && (
               <InfoRow label="Hall" value={currentStudent.hall} />
             )}
             {currentStudent.bloodGroup && (
               <InfoRow label="Blood Group" value={currentStudent.bloodGroup} />
-            )}
-            {currentStudent.gender && (
-              <InfoRow label="Gender" value={currentStudent.gender} />
             )}
           </div>
 
