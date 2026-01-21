@@ -278,7 +278,7 @@ const FilterBar = ({
     (selectedStates.length > 0 ? 1 : 0);
 
   return (
-    <div className="mb-6 space-y-4">
+    <div className="mb-3 space-y-4">
       {/* Search bar and toggle */}
       <div className="flex gap-3">
         {/* Search input */}

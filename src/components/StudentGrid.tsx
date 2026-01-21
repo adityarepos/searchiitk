@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, memo } from "react";
 import type { Student, StudentGridProps } from "@/types/student";
-import { getBatchLabel, ITEMS_PER_PAGE, QUICK_SUGGESTIONS } from "@/lib/constants";
+import { getBatchLabel, ITEMS_PER_PAGE } from "@/lib/constants";
 import { getHomeImageUrl, getOAImageUrl } from "@/lib/config";
-import { Search, Frown, User, Loader2 } from "lucide-react";
+import { Frown, User, Loader2 } from "lucide-react";
 
 interface StudentCardProps {
   student: Student;
@@ -146,30 +146,13 @@ const StudentGrid = ({
 
   if (!hasFilters) {
     return (
-      <div className="text-center py-20">
-        <div className="w-20 h-20 mx-auto bg-muted rounded-lg flex items-center justify-center mb-6">
-          <Search className="w-10 h-10 text-muted-foreground" />
-        </div>
-        <h2 className="text-xl font-semibold text-foreground mb-2">
-          Search for students
-        </h2>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          Use the search bar or filters above to find students. You can search
-          by name, roll number, or email.
-        </p>
-
-        <div className="mt-8">
-          <p className="text-sm text-muted-foreground mb-3">Quick suggestions</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {QUICK_SUGGESTIONS.map((suggestion) => (
-              <span
-                key={suggestion}
-                className="px-3 py-1.5 bg-card border border-border text-card-foreground text-sm rounded-md"
-              >
-                {suggestion}
-              </span>
-            ))}
-          </div>
+      <div className="text-center py-4">
+        <div className="w-96 h-96 mx-auto">
+          <img 
+            src="/sus_dog.jpg" 
+            alt="Search for students" 
+            className="w-full h-full object-contain rounded-lg"
+          />
         </div>
       </div>
     );
