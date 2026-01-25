@@ -17,6 +17,7 @@ import FilterBar from "@/components/FilterBar";
 import StudentGrid from "@/components/StudentGrid";
 import StudentModal from "@/components/StudentModal";
 import LoadingScreen from "@/components/LoadingScreen";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   // Filter state
@@ -148,14 +149,17 @@ const Index = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-2">
-            Error Loading Data
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <div className="text-center max-w-md">
+          <h1 className="text-2xl font-bold text-foreground mb-3">
+            Unable to Load Data
           </h1>
-          <p className="text-muted-foreground">
-            {error instanceof Error ? error.message : "An error occurred"}
+          <p className="text-muted-foreground mb-6">
+            {error instanceof Error ? error.message : "Failed to load student data. Please check your internet connection and try again."}
           </p>
+          <Button onClick={() => window.location.reload()}>
+            Retry
+          </Button>
         </div>
       </div>
     );
