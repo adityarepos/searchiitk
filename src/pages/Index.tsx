@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getStudentData } from "@/lib/dataCache";
 import {
@@ -21,6 +21,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 const Index = () => {
   // Filter state
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedBatchYears, setSelectedBatchYears] = useState<number[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [selectedPrograms, setSelectedPrograms] = useState<string[]>([]);
@@ -29,6 +30,12 @@ const Index = () => {
   const [selectedBloodGroups, setSelectedBloodGroups] = useState<string[]>([]);
   const [selectedStates, setSelectedStates] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+
+  // Debounce search
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchQuery), 150);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   // Modal state
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
@@ -67,7 +74,7 @@ const Index = () => {
   // Filter students
   const filteredStudents = useMemo(() => {
     return filterStudents(allStudents, {
-      searchQuery,
+      searchQuery: debouncedSearch,
       batchYears: selectedBatchYears,
       departments: selectedDepartments,
       programs: selectedPrograms,
@@ -78,7 +85,7 @@ const Index = () => {
     });
   }, [
     allStudents,
-    searchQuery,
+    debouncedSearch,
     selectedBatchYears,
     selectedDepartments,
     selectedPrograms,

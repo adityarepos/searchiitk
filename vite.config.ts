@@ -24,16 +24,20 @@ export default defineConfig({
   },
   build: {
     minify: "esbuild",
-    target: "es2020",
+    target: "esnext",
+    cssMinify: true,
+    cssCodeSplit: true,
+    modulePreload: { polyfill: false },
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          "react-vendor": ["react", "react-dom", "react-router-dom"],
-          "ui-vendor": [
-            "@radix-ui/react-dialog",
-            "@radix-ui/react-select",
-            "@radix-ui/react-tooltip",
-          ],
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react-router")) return "router";
+            if (id.includes("@tanstack/react-query")) return "query";
+            if (id.includes("@radix-ui")) return "ui";
+            if (id.includes("lucide-react")) return "icons";
+          }
         },
       },
     },

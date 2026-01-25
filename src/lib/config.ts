@@ -23,8 +23,5 @@ export function getHomeImageUrl(username: string): string {
   return `http://home.iitk.ac.in/~${username}/dp`;
 }
 
-// Legacy function for backward compatibility
-export function getImageUrl(rollNo: string): string {
-  if (!rollNo) return "";
-  return `https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${rollNo}_0.jpg`;
-}
+// Alias for backward compatibility
+export const getImageUrl = getOAImageUrl;

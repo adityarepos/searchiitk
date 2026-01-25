@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -494,4 +494,4 @@ const FilterBar = ({
   );
 };
 
-export default FilterBar;
+export default memo(FilterBar);

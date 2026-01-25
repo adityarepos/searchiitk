@@ -2,16 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Search and explore IIT Kanpur student directory with family tree connections" />
-    <title>SearchIITK - Student Directory</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Search IIT Kanpur student directory" />
+    <title>SearchIITK</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Preload critical data -->
+    <link rel="preload" href="/students.json" as="fetch" crossorigin />
+    <link rel="preload" href="/familytree.json" as="fetch" crossorigin />
+    <!-- DNS prefetch for image domains -->
+    <link rel="dns-prefetch" href="https://oa.cc.iitk.ac.in" />
+    <link rel="dns-prefetch" href="http://home.iitk.ac.in" />
+    <!-- System fonts - no external font loading for faster initial render -->
+    <style>
+      body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+      #root { min-height: 100vh; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

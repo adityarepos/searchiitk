@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { User, IdCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getHomeImageUrl, getOAImageUrl } from "@/lib/config";
@@ -156,7 +156,7 @@ export function StudentImage({
 }
 
 // Simplified version for small thumbnails (no button)
-export function StudentThumbnail({
+function StudentThumbnailBase({
   rollNo,
   username,
   name,
@@ -195,8 +195,11 @@ export function StudentThumbnail({
     <img
       src={currentUrl}
       alt={name}
+      loading="lazy"
       onError={handleError}
       className="w-full h-full object-contain"
     />
   );
 }
+
+export const StudentThumbnail = memo(StudentThumbnailBase);
