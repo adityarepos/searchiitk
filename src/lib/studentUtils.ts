@@ -332,39 +332,6 @@ export function getUniqueStates(students: Student[]): string[] {
 }
 
 /**
- * Fetch hometown data from API
- */
-export async function fetchHometown(rollNo: string): Promise<string | null> {
-  try {
-    const response = await fetch(
-      `/api/servlet/AutocompleteServlet?action=complete&id=${rollNo}`
-    );
-
-    if (!response.ok) return null;
-
-    const text = await response.text();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, "text/xml");
-
-    const parseError = xml.querySelector("parsererror");
-    if (parseError) {
-      console.error("XML parsing error:", parseError.textContent);
-      return null;
-    }
-
-    const homeTown = xml.querySelector("Home_town");
-    if (homeTown && homeTown.textContent) {
-      return homeTown.textContent.trim();
-    }
-
-    return null;
-  } catch (error) {
-    console.error("Error fetching hometown:", error);
-    return null;
-  }
-}
-
-/**
  * Get family member data from index
  */
 export function getFamilyMembers(

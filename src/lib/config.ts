@@ -7,11 +7,6 @@ export function getAssetPath(path: string): string {
   return `${BASE_PATH}${cleanPath}`;
 }
 
-// API endpoints
-export const API_ENDPOINTS = {
-  hometown: "/api/servlet/AutocompleteServlet",
-} as const;
-
 // Image URLs
 export function getOAImageUrl(rollNo: string): string {
   if (!rollNo) return "";

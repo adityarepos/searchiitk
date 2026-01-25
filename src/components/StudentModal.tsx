@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import type { Student, StudentModalProps } from "@/types/student";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { fetchHometown, getFamilyMembers } from "@/lib/studentUtils";
+import { getFamilyMembers } from "@/lib/studentUtils";
 import { StudentImage, StudentThumbnail } from "@/components/StudentImage";
 import { ChevronLeft, ChevronRight, X, Users } from "lucide-react";
 
@@ -69,26 +69,12 @@ const StudentModal = ({
   onNavigate,
   allStudents,
 }: StudentModalProps) => {
-  const [hometown, setHometown] = useState<string | null>(null);
-  const [hometownLoading, setHometownLoading] = useState(false);
   const [navigationHistory, setNavigationHistory] = useState<Student[]>([
     student,
   ]);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const currentStudent = navigationHistory[navigationHistory.length - 1];
-
-  // Fetch hometown when student changes
-  useEffect(() => {
-    setHometown(null);
-    if (currentStudent?.rollNo) {
-      setHometownLoading(true);
-      fetchHometown(currentStudent.rollNo)
-        .then(setHometown)
-        .catch(() => setHometown(null))
-        .finally(() => setHometownLoading(false));
-    }
-  }, [currentStudent?.rollNo]);
 
   // Close on escape key
   useEffect(() => {
@@ -190,7 +176,11 @@ const StudentModal = ({
             <InfoRow label="Email" value={currentStudent.email} mono />
             <InfoRow
               label="Hometown"
-              value={hometownLoading ? "Loading..." : (hometown && currentStudent.state ? `${hometown}, ${currentStudent.state}` : hometown)}
+              value={
+                currentStudent.hometown && currentStudent.state
+                  ? `${currentStudent.hometown}, ${currentStudent.state}`
+                  : currentStudent.hometown || (currentStudent.state ? currentStudent.state : undefined)
+              }
             />
             {currentStudent.hall && (
               <InfoRow label="Hall" value={currentStudent.hall} />
