@@ -183,7 +183,13 @@ const StudentModal = ({
               }
             />
             {currentStudent.hall && (
-              <InfoRow label="Hall" value={currentStudent.hall} />
+              <InfoRow
+                label="Hall"
+                value={
+                  (currentStudent.room ? `${currentStudent.room}, ` : "") +
+                  currentStudent.hall
+                }
+              />
             )}
             {currentStudent.bloodGroup && (
               <InfoRow label="Blood Group" value={currentStudent.bloodGroup} />
